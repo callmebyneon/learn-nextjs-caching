@@ -21,9 +21,6 @@ export default async function RootLayout({
   const todos = await (
     await fetch("http://localhost:4000/todos", {
       // cache: "no-store",
-      next: {
-        revalidate: 60, // 60초 마다 재검증
-      },
     })
   ).json();
   return (
