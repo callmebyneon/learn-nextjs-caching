@@ -15,16 +15,18 @@ let todos = [
 
 app.get("/todos", (_, res) => {
   console.log("Received GET request at /todos");
-  res.json(todos);
+  res.status(200).json(todos);
 });
 
-app.post("/todos", (req, res) => {
+app.patch("/todos", (req, res) => {
   console.log("Received POST request at /todos, id:", req.body.id);
   const reqId = req.body.id;
-  todos = [...todos].forEach((todo) =>
+  console.log(typeof reqId);
+  todos = [...todos].map((todo) =>
     todo.id === reqId ? { ...todo, completed: !todo.completed } : todo
   );
-  res.json(todos);
+  console.log(todos);
+  res.status(200).json({ message: "Success: Update Todo" });
 });
 
 app.listen(4000, () => {
